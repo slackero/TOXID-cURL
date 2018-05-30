@@ -3,6 +3,7 @@
 class toxid_setup_main extends \OxidEsales\Eshop\Application\Controller\Admin\AdminController
 {
     const CONFIG_MODULE_NAME = 'module:toxid_curl';
+    const CONFIG_BACKUP_MODULE_NAME = 'module:toxid_curl_backup';
     protected $_sThisTemplate = 'toxid_setup_main.tpl';
 
     public function render()
@@ -59,5 +60,24 @@ class toxid_setup_main extends \OxidEsales\Eshop\Application\Controller\Admin\Ad
         $oConf->saveShopConfVar('arr', 'aToxidCurlUrlAdminParams', $aParams['aToxidCurlUrlAdminParams'], $sShopId, self::CONFIG_MODULE_NAME);
         $oConf->saveShopConfVar('str', 'toxidAllowedCmsRequestParams', $aParams['toxidAllowedCmsRequestParams'], $sShopId, self::CONFIG_MODULE_NAME);
         $oConf->saveShopConfVar('bl', 'toxidDontVerifySSLCert', $aParams['toxidDontVerifySSLCert'], $sShopId, self::CONFIG_MODULE_NAME);
+
+        // Save backups
+        $oConf->saveShopConfVar('arr', 'aToxidCurlSourceBackup', $aParams['aToxidCurlSource'], $sShopId, self::CONFIG_BACKUP_MODULE_NAME);
+        $oConf->saveShopConfVar('arr', 'aToxidCurlSourceSslBackup', $aParams['aToxidCurlSourceSsl'], $sShopId, self::CONFIG_BACKUP_MODULE_NAME);
+        $oConf->saveShopConfVar('arr', 'aToxidSearchUrlBackup', $aParams['aToxidSearchUrl'], $sShopId, self::CONFIG_BACKUP_MODULE_NAME);
+        $oConf->saveShopConfVar('arr', 'aToxidCurlUrlParamsBackup', $aParams['aToxidCurlUrlParams'], $sShopId, self::CONFIG_BACKUP_MODULE_NAME);
+        $oConf->saveShopConfVar('arr', 'aToxidCurlSeoSnippetsBackup', $aParams['aToxidCurlSeoSnippets'], $sShopId, self::CONFIG_BACKUP_MODULE_NAME);
+        $oConf->saveShopConfVar('str', 'toxidDontRewriteRelUrlsBackup', $aParams['toxidDontRewriteRelUrls'], $sShopId, self::CONFIG_BACKUP_MODULE_NAME);
+        $oConf->saveShopConfVar('str', 'toxidDontRewriteFileExtensionBackup', $aParams['toxidDontRewriteFileExtension'], $sShopId, self::CONFIG_BACKUP_MODULE_NAME);
+        $oConf->saveShopConfVar('str', 'toxidCacheTtlBackup', $aParams['toxidCacheTtl'], $sShopId, self::CONFIG_BACKUP_MODULE_NAME);
+        $oConf->saveShopConfVar('str', 'toxidError404LinkBackup', $aParams['toxidError404Link'], $sShopId, self::CONFIG_BACKUP_MODULE_NAME);
+        $oConf->saveShopConfVar('arr', 'aToxidNotFoundUrlBackup', $aParams['aToxidNotFoundUrl'], $sShopId, self::CONFIG_BACKUP_MODULE_NAME);
+        $oConf->saveShopConfVar('bl', 'toxidRewriteUrlEncodedBackup', $aParams['toxidRewriteUrlEncoded'], $sShopId, self::CONFIG_BACKUP_MODULE_NAME);
+        $oConf->saveShopConfVar('bl', 'toxidDontRewriteUrlsBackup', $aParams['toxidDontRewriteUrls'], $sShopId, self::CONFIG_BACKUP_MODULE_NAME);
+        $oConf->saveShopConfVar('bl', 'bToxidDontPassPostVarsToCmsBackup', $aParams['bToxidDontPassPostVarsToCms'], $sShopId, self::CONFIG_BACKUP_MODULE_NAME);
+        $oConf->saveShopConfVar('bl', 'bToxidRedirect301ToStartpageBackup', $aParams['bToxidRedirect301ToStartpage'], $sShopId, self::CONFIG_BACKUP_MODULE_NAME);
+        $oConf->saveShopConfVar('arr', 'aToxidCurlUrlAdminParamsBackup', $aParams['aToxidCurlUrlAdminParams'], $sShopId, self::CONFIG_BACKUP_MODULE_NAME);
+        $oConf->saveShopConfVar('str', 'toxidAllowedCmsRequestParamsBackup', $aParams['toxidAllowedCmsRequestParams'], $sShopId, self::CONFIG_BACKUP_MODULE_NAME);
+        $oConf->saveShopConfVar('bl', 'toxidDontVerifySSLCertBackup', $aParams['toxidDontVerifySSLCert'], $sShopId, self::CONFIG_BACKUP_MODULE_NAME);
     }
 }
