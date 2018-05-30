@@ -31,15 +31,15 @@ $aModule = array(
     'version'       => '2.3.3',
     'author'        => 'marmalade GmbH :: Joscha Krug',
     'extend' => array(
-        'oxseodecoder'              => 'toxid_curl/core/toxid_curl_oxseodecoder',
-        'oxviewconfig'              => 'toxid_curl/core/toxid_curl_oxviewconfig',
-        'oxutilsview'               => 'toxid_curl/core/toxid_curl_oxutilsview'
+        'oxseodecoder'              => 'marm/toxid_curl/core/toxid_curl_oxseodecoder',
+        'oxviewconfig'              => 'marm/toxid_curl/core/toxid_curl_oxviewconfig',
+        'oxutilsview'               => 'marm/toxid_curl/core/toxid_curl_oxutilsview'
     ),
     'templates' => array(
-        'toxid_curl.tpl'            => 'toxid_curl/views/azure/toxid_curl.tpl',
-        'product.tpl'               => 'toxid_curl/views/azure/product.tpl',
-        'toxid_setup_main.tpl'      => 'toxid_curl/views/admin/tpl/toxid_setup_main.tpl',
-        'toxid_content_widget.tpl'  => 'toxid_curl/views/widgets/toxid_content_widget.tpl',
+        'toxid_curl.tpl'            => 'marm/toxid_curl/views/azure/toxid_curl.tpl',
+        'product.tpl'               => 'marm/toxid_curl/views/azure/product.tpl',
+        'toxid_setup_main.tpl'      => 'marm/toxid_curl/views/admin/tpl/toxid_setup_main.tpl',
+        'toxid_content_widget.tpl'  => 'marm/toxid_curl/views/widgets/toxid_content_widget.tpl',
     ),
     'blocks' => array(
         array(
@@ -49,14 +49,14 @@ $aModule = array(
         ),
     ),
     'files' => array(
-        'toxid_curl'                => 'toxid_curl/controller/toxid_curl.php',
-        'toxidcurl'                 => 'toxid_curl/core/toxidcurl.php',
-        'toxid_setup'               => 'toxid_curl/controller/admin/toxid_setup.php',
-        'toxid_setup_main'          => 'toxid_curl/controller/admin/toxid_setup_main.php',
-        'toxid_setup_list'          => 'toxid_curl/controller/admin/toxid_setup_list.php',
-        'toxid_curl_events'         => 'toxid_curl/core/toxid_curl_events.php',
-        'toxid_curl_smarty_parser'  => 'toxid_curl/core/facades/toxid_curl_smarty_parser.php',
-        'toxid_curl_content_widget' => 'toxid_curl/widgets/toxid_curl_content_widget.php',
+        'toxid_curl'                => 'marm/toxid_curl/controller/toxid_curl.php',
+        'toxidcurl'                 => 'marm/toxid_curl/core/toxidcurl.php',
+        'toxid_setup'               => 'marm/toxid_curl/controller/admin/toxid_setup.php',
+        'toxid_setup_main'          => 'marm/toxid_curl/controller/admin/toxid_setup_main.php',
+        'toxid_setup_list'          => 'marm/toxid_curl/controller/admin/toxid_setup_list.php',
+        'toxid_curl_events'         => 'marm/toxid_curl/core/toxid_curl_events.php',
+        'toxid_curl_smarty_parser'  => 'marm/toxid_curl/core/facades/toxid_curl_smarty_parser.php',
+        'toxid_curl_content_widget' => 'marm/toxid_curl/widgets/toxid_curl_content_widget.php',
     ),
     'settings' => array(
         array(

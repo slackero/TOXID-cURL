@@ -20,7 +20,7 @@ class toxid_curl_oxutilsview extends toxid_curl_oxutilsview_parent
     {
         parent::_fillCommonSmartyProperties($oSmarty);
 
-        $cfg = oxRegistry::getConfig();
+        $cfg = \OxidEsales\Eshop\Core\Registry::getConfig();
 
         $aPluginsDir = $oSmarty->plugins_dir;
         $aPluginsDir[] = $cfg->getModulesDir()."/toxid_curl/smarty/plugins/";

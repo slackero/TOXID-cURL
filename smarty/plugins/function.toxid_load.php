@@ -19,6 +19,7 @@
  * @param Smarty &$smarty clever simulation of a method
  *
  * @return string
+ * @throws \OxidEsales\Eshop\Core\Exception\DatabaseConnectionException
  */
 function smarty_function_toxid_load( $params, &$smarty )
 {
@@ -45,7 +46,7 @@ function smarty_function_toxid_load( $params, &$smarty )
     if ($sIdent) {
         switch ($sType) {
             case 'oxarticle':
-                $sOxid = oxDb::getDb()->getOne(
+                $sOxid = \OxidEsales\Eshop\Core\DatabaseProvider::getDb()->getOne(
                     'SELECT OXID FROM oxarticles WHERE OXARTNUM = ?',
                     array($sIdent)
                 );

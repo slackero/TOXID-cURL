@@ -30,7 +30,7 @@ class toxid_curl_oxviewconfig extends toxid_curl_oxviewconfig_parent
      */
     protected function _injectTplVariable()
     {
-        $oConfig = oxRegistry::getConfig();
+        $oConfig = \OxidEsales\Eshop\Core\Registry::getConfig();
         $sTplVariableName = $oConfig->getConfigParam('sTplVariable');
         if ($sTplVariableName) {
             $oConfig->getActiveView()->addTplParam($sTplVariableName, $this->getToxid());
@@ -43,7 +43,7 @@ class toxid_curl_oxviewconfig extends toxid_curl_oxviewconfig_parent
      */
     public function getToxid()
     {
-        $toxidCurl = oxRegistry::get('toxidcurl');
+        $toxidCurl = \OxidEsales\Eshop\Core\Registry::get('toxidcurl');
         if (!$toxidCurl->getInitialized()) {
             $smartyParser = oxNew('toxid_curl_smarty_parser');
             $toxidCurl->init(

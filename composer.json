@@ -6,6 +6,11 @@
   "require": {
     "composer/installers": "~1.0"
   },
+  "extra": {
+    "oxideshop": {
+      "target-directory": "marm/toxid_curl"
+    }
+  },
   "require-dev": {
     "phpunit/phpunit": "@stable",
     "phpmd/oxmd": "@stable"

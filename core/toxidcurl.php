@@ -159,9 +159,9 @@ class toxidCurl
 
         $oConf        = $this->getConfig();
         $sShopId      = $oConf->getActiveShop()->getId();
-        $sLangId      = oxRegistry::getLang()->getBaseLanguage();
-        $oUtils       = oxRegistry::getUtils();
-        $oUtilsServer = oxRegistry::get('oxUtilsServer');
+        $sLangId      = \OxidEsales\Eshop\Core\Registry::getLang()->getBaseLanguage();
+        $oUtils       = \OxidEsales\Eshop\Core\Registry::getUtils();
+        $oUtilsServer = \OxidEsales\Eshop\Core\Registry::get('oxUtilsServer');
 
         $sCacheIdent = $this->getCacheIdent($snippet,$sShopId,$sLangId,$blGlobalSnippet);
 
@@ -189,7 +189,7 @@ class toxidCurl
 
         $oConf   = $this->getConfig();
         $sShopId = $oConf->getActiveShop()->getId();
-        $sLangId = oxRegistry::getLang()->getBaseLanguage();
+        $sLangId = \OxidEsales\Eshop\Core\Registry::getLang()->getBaseLanguage();
         $sText   = $this->smartyParser->parse($sText);
 
         $this->_sPageTitle = $this->smartyParser->parse($sPageTitle);
@@ -445,7 +445,7 @@ class toxidCurl
 
         if ($blMultiLang == false) {
             if ($iLangId === null) {
-                $iLangId = oxRegistry::getLang()->getBaseLanguage();
+                $iLangId = \OxidEsales\Eshop\Core\Registry::getLang()->getBaseLanguage();
             }
             $aLanguages = array($iLangId);
         } else {
@@ -509,7 +509,7 @@ class toxidCurl
             $this->_aSourceUrlByLang = $this->getConfig()->getConfigParam('aToxidCurlSource');
         }
         if ($iLangId === null) {
-            $iLangId = oxRegistry::getLang()->getBaseLanguage();
+            $iLangId = \OxidEsales\Eshop\Core\Registry::getLang()->getBaseLanguage();
         }
 
         $source = $this->_aSourceUrlByLang[$iLangId];
@@ -534,7 +534,7 @@ class toxidCurl
             $this->_aToxidLangUrlParam = $this->getConfig()->getConfigParam('aToxidCurlUrlParams');
         }
         if ($iLangId === null) {
-            $iLangId = oxRegistry::getLang()->getBaseLanguage();
+            $iLangId = \OxidEsales\Eshop\Core\Registry::getLang()->getBaseLanguage();
         }
 
         return '?' . ltrim($this->_aToxidLangUrlParam[$iLangId], '?');
@@ -583,7 +583,7 @@ class toxidCurl
 
         foreach ($params as $param) {
 
-            $paramValue = oxRegistry::getConfig()->getRequestParameter($param);
+            $paramValue = \OxidEsales\Eshop\Core\Registry::getConfig()->getRequestParameter($param);
 
             if (isset($paramValue) && $paramValue !== '') {
                 $cmsParams .= '&' . $param . '=' . $paramValue;
@@ -607,7 +607,7 @@ class toxidCurl
             $this->_aRewriteStartUrl = $this->getConfig()->getConfigParam('aToxidCurlSeoSnippets');
         }
         if ($iLangId === null) {
-            $iLangId = oxRegistry::getLang()->getBaseLanguage();
+            $iLangId = \OxidEsales\Eshop\Core\Registry::getLang()->getBaseLanguage();
         }
 
         return $this->_aRewriteStartUrl[$iLangId];
@@ -635,7 +635,7 @@ class toxidCurl
             $this->_aSearchUrl = $this->getConfig()->getConfigParam('aToxidSearchUrl');
         }
         if ($iLangId === null) {
-            $iLangId = oxRegistry::getLang()->getBaseLanguage();
+            $iLangId = \OxidEsales\Eshop\Core\Registry::getLang()->getBaseLanguage();
         }
 
         return $this->_aSearchUrl[$iLangId];
@@ -683,7 +683,7 @@ class toxidCurl
             $this->_aNotFoundUrl = $this->getConfig()->getConfigParam('aToxidNotFoundUrl');
         }
         if ($iLangId === null) {
-            $iLangId = oxRegistry::getLang()->getBaseLanguage();
+            $iLangId = \OxidEsales\Eshop\Core\Registry::getLang()->getBaseLanguage();
         }
 
         return array_key_exists($iLangId, (array)$this->_aNotFoundUrl) ? $this->_aNotFoundUrl[$iLangId] : null;
@@ -703,7 +703,7 @@ class toxidCurl
             case 500:
                 header("HTTP/1.1 500 Internal Server Error");
                 header('Location: ' . $this->getConfig()->getShopHomeURL());
-                oxRegistry::getUtils()->showMessageAndExit('');
+                \OxidEsales\Eshop\Core\Registry::getUtils()->showMessageAndExit('');
                 break;
             case 404:
                 if($this->_getToxidNotFoundUrl() && !$notFound404) {
@@ -717,10 +717,10 @@ class toxidCurl
                 if ($this->getConfig()->getConfigParam('bToxidRedirect301ToStartpage')) {
                     header("HTTP/1.1 301 Moved Permanently");
                     header('Location: ' . $this->getToxidStartUrl());
-                    oxRegistry::getUtils()->showMessageAndExit('');
+                    \OxidEsales\Eshop\Core\Registry::getUtils()->showMessageAndExit('');
                 } else {
                     $redirectUrl = $this->prepareRedirectUrl($aPage['info']['redirect_url']);
-                    oxRegistry::getUtils()->redirect($redirectUrl, false, 301);
+                    \OxidEsales\Eshop\Core\Registry::getUtils()->redirect($redirectUrl, false, 301);
                 }
                 break;
             case 302:
@@ -731,7 +731,7 @@ class toxidCurl
                 break;
             case 0:
                 header('Location: ' . $this->getConfig()->getShopHomeURL());
-                oxRegistry::getUtils()->showMessageAndExit('');
+                \OxidEsales\Eshop\Core\Registry::getUtils()->showMessageAndExit('');
                 break;
         }
 
@@ -775,7 +775,7 @@ class toxidCurl
     private function getBaseLanguage()
     {
         if ($this->iLangId === null) {
-            $this->iLangId = oxRegistry::getLang()->getBaseLanguage();
+            $this->iLangId = \OxidEsales\Eshop\Core\Registry::getLang()->getBaseLanguage();
         }
 
         return $this->iLangId;
@@ -811,7 +811,7 @@ class toxidCurl
      */
     private function getConfig()
     {
-        return oxRegistry::getConfig();
+        return \OxidEsales\Eshop\Core\Registry::getConfig();
     }
 
     /**
@@ -828,9 +828,9 @@ class toxidCurl
             case 404:
                 $sRedirectLinkError404 = $this->getConfig()->getConfigParam('toxidError404Link');
                 if ('' !== trim($sRedirectLinkError404)) {
-                    oxRegistry::getUtils()->redirect($sRedirectLinkError404);
+                    \OxidEsales\Eshop\Core\Registry::getUtils()->redirect($sRedirectLinkError404);
                 }
-                oxRegistry::getUtils()->handlePageNotFoundError($sUrl);
+                \OxidEsales\Eshop\Core\Registry::getUtils()->handlePageNotFoundError($sUrl);
                 break;
         }
 
@@ -866,7 +866,7 @@ class toxidCurl
      */
     private function isAdminLoggedIn()
     {
-        $user = oxRegistry::getConfig()->getUser();
+        $user = \OxidEsales\Eshop\Core\Registry::getConfig()->getUser();
 
         return ($user && $user->oxuser__oxrights->value != 'user');
     }

@@ -15,7 +15,7 @@
 /**
  * TOXID - loads CMS-pages and displays them
  */
-class toxid_curl extends oxUBase
+class toxid_curl extends \OxidEsales\Eshop\Application\Controller\FrontendController
 {
     private $_initialized = false;
 
@@ -51,7 +51,7 @@ class toxid_curl extends oxUBase
      */
     public function getTitle()
     {
-        $sTitle = oxRegistry::get('toxidCurl')->_sPageTitle;
+        $sTitle = \OxidEsales\Eshop\Core\Registry::get('toxidCurl')->_sPageTitle;
         return $sTitle;
     }
     
@@ -62,7 +62,7 @@ class toxid_curl extends oxUBase
      */
     public function getMetaDescription()
     {
-        $this->_xMetaDescription = strip_tags(oxRegistry::get('toxidCurl')->_sPageDescription);
+        $this->_xMetaDescription = strip_tags(\OxidEsales\Eshop\Core\Registry::get('toxidCurl')->_sPageDescription);
         if ( $this->_sMetaDescription === null ) {
             $this->_sMetaDescription = false;
 
@@ -84,7 +84,7 @@ class toxid_curl extends oxUBase
      */
     public function getMetaKeywords()
     {
-        $this->_xMetaKeywords = strip_tags(oxRegistry::get('toxidCurl')->_sPageKeywords);
+        $this->_xMetaKeywords = strip_tags(\OxidEsales\Eshop\Core\Registry::get('toxidCurl')->_sPageKeywords);
         if ( $this->_sMetaKeywords === null ) {
             $this->_sMetaKeywords = false;
 
@@ -104,7 +104,7 @@ class toxid_curl extends oxUBase
      */
     public function render()
     {
-        if ( version_compare(oxRegistry::getConfig()->getVersion(), '4.5.0') < 0 ) {
+        if ( version_compare(\OxidEsales\Eshop\Core\ShopVersion::getVersion(), '4.5.0') < 0 ) {
             $this->_sThisTemplate = 'toxid_curl.tpl';
         }
         return parent::render();

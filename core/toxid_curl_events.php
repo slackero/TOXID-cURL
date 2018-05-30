@@ -18,7 +18,7 @@ class toxid_curl_events extends oxI18n {
 
 	public static function onActivate() {
 
-		$cfg = oxRegistry::getConfig();
+		$cfg = \OxidEsales\Eshop\Core\Registry::getConfig();
 
 		//clearing cache
 		$dir = $cfg->getConfigParam("sCompileDir")."*";
@@ -29,7 +29,7 @@ class toxid_curl_events extends oxI18n {
 		}
 
 		// reloading smarty object after activation
-		oxRegistry::get("oxUtilsView")->getSmarty(true);
+        \OxidEsales\Eshop\Core\Registry::get("oxUtilsView")->getSmarty(true);
 	}
 
 	public static function onDeactivate() {
@@ -41,7 +41,7 @@ class toxid_curl_events extends oxI18n {
 
 
 		//clearing cache to force re-init smarty object (i hope)
-		$cfg = oxRegistry::getConfig();
+		$cfg = \OxidEsales\Eshop\Core\Registry::getConfig();
 		$dir = $cfg->getConfigParam("sCompileDir")."*";
 		foreach (glob($dir) as $item) {
 			if (!is_dir($item)) {

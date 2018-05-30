@@ -1,13 +1,13 @@
 <?php
 
-class toxid_setup_main extends oxAdminView
+class toxid_setup_main extends \OxidEsales\Eshop\Application\Controller\Admin\AdminController
 {
     const CONFIG_MODULE_NAME = 'module:toxid_curl';
     protected $_sThisTemplate = 'toxid_setup_main.tpl';
 
     public function render()
     {
-        $oConf = oxRegistry::getConfig();
+        $oConf = \OxidEsales\Eshop\Core\Registry::getConfig();
 
         $this->_aViewData['aToxidCurlSource']              = $oConf->getShopConfVar('aToxidCurlSource');
         $this->_aViewData['aToxidCurlSourceSsl']           = $oConf->getShopConfVar('aToxidCurlSourceSsl');
@@ -37,8 +37,9 @@ class toxid_setup_main extends oxAdminView
      */
     public function save()
     {
-        $oConf   = oxRegistry::getConfig();
-        $aParams = $oConf->getRequestParameter("editval");
+        $oConf   = \OxidEsales\Eshop\Core\Registry::getConfig();
+        $oRequest = \OxidEsales\Eshop\Core\Registry::getRequest();
+        $aParams = $oRequest->getRequestParameter("editval");
         $sShopId = $oConf->getShopId();
 
         $oConf->saveShopConfVar('arr', 'aToxidCurlSource', $aParams['aToxidCurlSource'], $sShopId, self::CONFIG_MODULE_NAME);

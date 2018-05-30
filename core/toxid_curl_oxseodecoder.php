@@ -33,7 +33,7 @@ class toxid_curl_oxseodecoder extends toxid_curl_oxseodecoder_parent
             $aRet['lang'] = $this->decodedUrl['toxidLang'];
             $toxidUrl     = $this->decodedUrl['toxidUrl'];
 
-            oxRegistry::getLang()->setBaseLanguage($aRet['lang']);
+            \OxidEsales\Eshop\Core\Registry::getLang()->setBaseLanguage($aRet['lang']);
             $this->getConfig()->setConfigParam('sToxidCurlPage', $toxidUrl);
 
             return $aRet;
@@ -41,7 +41,7 @@ class toxid_curl_oxseodecoder extends toxid_curl_oxseodecoder_parent
         if (isset($this->decodedUrl['params'])) {
             return $this->decodedUrl['params'];
         }
-        oxRegistry::getUtils()->redirect($this->getConfig()->getShopURL() . $this->decodedUrl['url'], false);
+        \OxidEsales\Eshop\Core\Registry::getUtils()->redirect($this->getConfig()->getShopURL() . $this->decodedUrl['url'], false);
     }
 
     /**
@@ -87,7 +87,7 @@ class toxid_curl_oxseodecoder extends toxid_curl_oxseodecoder_parent
         $decodedToxidUrl = $this->detectToxidAndLang($sSeoUrl);
         if (false !== $decodedToxidUrl) {
             $this->decodedUrl['toxidUrl'] = $decodedToxidUrl['url'];
-            $languageId = oxRegistry::getLang()->getBaseLanguage();
+            $languageId = \OxidEsales\Eshop\Core\Registry::getLang()->getBaseLanguage();
             $this->decodedUrl['toxidLang'] = $this->processToxidLangByUrl($languageId, $this->decodedUrl['toxidUrl']);
 
             return true;
@@ -112,7 +112,7 @@ class toxid_curl_oxseodecoder extends toxid_curl_oxseodecoder_parent
         }
 
         $this->decodedUrl['toxidUrl'] = $this->postProcessToxidUrl($sSeoUrl);
-        $languageId = oxRegistry::getLang()->getBaseLanguage();
+        $languageId = \OxidEsales\Eshop\Core\Registry::getLang()->getBaseLanguage();
         $this->decodedUrl['toxidLang'] = $this->processToxidLangByUrl($languageId, $this->decodedUrl['toxidUrl']);
 
         return true;

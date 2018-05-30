@@ -1,6 +1,6 @@
 <?php
 
-class toxid_setup_list extends Shop_List
+class toxid_setup_list extends \OxidEsales\Eshop\Application\Controller\Admin\ShopList
 {
     
 }
