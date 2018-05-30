@@ -48,8 +48,6 @@ class toxid_curl_events extends \OxidEsales\Eshop\Core\Model\MultiLanguageModel 
 
 
     /**
-     * @throws \OxidEsales\Eshop\Core\Exception\DatabaseConnectionException
-     * @throws \OxidEsales\Eshop\Core\Exception\DatabaseErrorException
      */
     public static function onActivate() {
 
@@ -62,7 +60,7 @@ class toxid_curl_events extends \OxidEsales\Eshop\Core\Model\MultiLanguageModel 
         $aBackupModuleConfigs = static::getBackupModuleConfigs();
         if ($aBackupModuleConfigs && count($aBackupModuleConfigs)>0) {
             foreach ($aBackupModuleConfigs as $varName => $aBackupModuleConfig) {
-                if (!$cfg->getShopConfVar($varName,$cfg->getShopId(),'toxid_curl')) {
+                if (!$cfg->getShopConfVar($varName,$cfg->getShopId(),'module:toxid_curl')) {
                     $cfg->saveShopConfVar($aBackupModuleConfig['oxvartype'], $varName, $aBackupModuleConfig['oxvarvalue'], $cfg->getShopId(), 'module:toxid_curl');
                 }
             }
