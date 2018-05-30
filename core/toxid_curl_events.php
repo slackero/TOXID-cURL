@@ -63,7 +63,7 @@ class toxid_curl_events extends \OxidEsales\Eshop\Core\Model\MultiLanguageModel 
         if ($aBackupModuleConfigs && count($aBackupModuleConfigs)>0) {
             foreach ($aBackupModuleConfigs as $varName => $aBackupModuleConfig) {
                 if (!$cfg->getShopConfVar($varName,$cfg->getShopId(),'toxid_curl')) {
-                    $cfg->saveShopConfVar($aBackupModuleConfig['oxvartype'], $varName, $aBackupModuleConfig['oxvarvalue'], $cfg->getShopId(), 'toxid_curl');
+                    $cfg->saveShopConfVar($aBackupModuleConfig['oxvartype'], $varName, $aBackupModuleConfig['oxvarvalue'], $cfg->getShopId(), 'module:toxid_curl');
                 }
             }
         }
