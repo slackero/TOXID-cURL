@@ -1,7 +1,7 @@
 {
   "name": "jkrug/toxid_curl",
   "description": "",
-  "type": "oxid-module",
+  "type": "oxideshop-module",
   "license": "GPL-3.0",
   "require": {
     "composer/installers": "~1.0"
