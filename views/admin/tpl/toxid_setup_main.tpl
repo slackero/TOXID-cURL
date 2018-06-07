@@ -38,7 +38,7 @@ function _groupExp(el) {
                         <tr>
                             <td valign="top" style="width:500px;padding-right:30px;">
                                 <a href="http://www.marmalade.de/" target="_blank" style="float:left;margin:0 20px 10px 0">
-                                    <img src="../modules/toxid_curl/toxid.jpg" width="90px" />
+                                    <img src="../modules/marm/toxid_curl/toxid.jpg" width="90px" />
                                 </a>
                                 [{oxmultilang ident='TOXID_SUPPORT_DESC'}]
                             </td>
@@ -141,6 +141,22 @@ function _groupExp(el) {
                                     </td>
                                     <td valign="top" class="edittext">
                                         <input type="text" name="editval[aToxidNotFoundUrl][[{ $lang }]]" value="[{$aToxidNotFoundUrl.$lang}]">
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="edittext">
+                                        [{oxmultilang ident="TOXID_LOGIN"}]:
+                                    </td>
+                                    <td class="edittext">
+                                        <input type="text" name="editval[aToxidCurlLogin][[{ $lang }]]" value="[{$aToxidCurlLogin.$lang}]" size="40" autocomplete="off">
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="edittext">
+                                        [{oxmultilang ident="TOXID_PWD"}]:
+                                    </td>
+                                    <td class="edittext">
+                                        <input type="password" name="editval[aToxidCurlPwd][[{ $lang }]]" value="[{$aToxidCurlPwd.$lang}]" size="40" autocomplete="off">
                                     </td>
                                 </tr>
                             </table>

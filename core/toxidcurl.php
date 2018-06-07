@@ -85,6 +85,17 @@ class toxidCurl
      */
     protected $_sCustomPage = null;
     /**
+     * array of strings with language specific toxidCurlLogin
+     * @var array
+     */
+    protected $_aToxidCurlLogin = null;
+
+    /**
+     * array of strings with language specific toxidCurlPwd
+     * @var array
+     */
+    protected $_aToxidCurlPwd = null;
+    /**
      * stores rel values for no url rewrite
      *
      * @var string
@@ -407,6 +418,13 @@ class toxidCurl
         curl_setopt($curl_handle, CURLOPT_RETURNTRANSFER, 1);
         if (!$this->isToxidCurlPage()) {
             curl_setopt($curl_handle, CURLOPT_FOLLOWLOCATION, true);
+        }
+
+        // Use cURL Login/Password
+        $sLogin = $this->_getToxidLangCurlLogin();
+        $sPwd = $this->_getToxidLangCurlPwd();
+        if($sLogin.$sPwd !== '') {
+            curl_setopt($curl_handle, CURLOPT_USERPWD, $sLogin.':'.$sPwd);
         }
 
         if ($this->getConfig()->getConfigParam('toxidDontVerifySSLCert')) {
@@ -904,5 +922,50 @@ class toxidCurl
         $sUrl = $source . $custom . $page . $params;
 
         return $sUrl;
+    }
+
+    /**
+     * Get language specific Toxid access control login
+     * @param int $iLangId
+     * @param bool $blReset reset object value, and get url again
+     * @return string
+     */
+    protected function _getToxidLangCurlLogin($iLangId = null, $blReset = false)
+    {
+        if ($this->_aToxidCurlLogin === null || $blReset) {
+            $this->_aToxidCurlLogin = $this->_oConf->getConfigParam('aToxidCurlLogin');
+        }
+        if ($iLangId === null) {
+            $iLangId = oxRegistry::getLang()->getBaseLanguage();
+        }
+
+        return isset($this->_aToxidCurlLogin[$iLangId]) ? $this->_aToxidCurlLogin[$iLangId] : '';
+    }
+
+    /**
+     * Get language specific Toxid access control password
+     * @param int $iLangId
+     * @param bool $blReset reset object value, and get url again
+     * @return string
+     */
+    protected function _getToxidLangCurlPwd($iLangId = null, $blReset = false)
+    {
+        if ($this->_aToxidCurlPwd === null || $blReset) {
+
+            $oDecryptor = oxNew('oxDecryptor');
+            $encryptKey = $this->_oConf->getConfigParam('dbPwd');
+            $this->_aToxidCurlPwd = $this->_oConf->getConfigParam('aToxidCurlPwd');
+
+            foreach($this->_aToxidCurlPwd as $lang => $value) {
+                if($value !== '') {
+                    $this->_aToxidCurlPwd[$lang] = $oDecryptor->decrypt($value, $encryptKey);
+                }
+            }
+        }
+        if ($iLangId === null) {
+            $iLangId = oxRegistry::getLang()->getBaseLanguage();
+        }
+
+        return isset($this->_aToxidCurlPwd[$iLangId]) ? $this->_aToxidCurlPwd[$iLangId] : '';
     }
 }

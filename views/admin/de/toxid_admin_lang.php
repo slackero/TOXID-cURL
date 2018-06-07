@@ -34,10 +34,8 @@ $aLang = [
     'TOXID_CACHE_TTL'                              => 'Cache-Lebenszeit (TTL) in Sekunden',
     'HELP_TOXID_CACHE_TTL'                         => '0 => unendlich<br>kein Wert => default Cache deaktiviert',
     'TOXID_DONT_VERIFY_SSL_CERTIFICATE'            => 'SSL-Zertifikat nicht überprüfen',
+    'TOXID_LOGIN'                                  => 'Zugangsschutz Login',
+    'TOXID_PWD'                                    => 'Zugangsschutz Passwort',
+    'TOXID_DONT_REDIRECT'                          => 'Nicht weiterleiten auf Startseite des Shops bei fehlgeschlagenem Abruf',
 ];
 
-if (oxRegistry::getConfig()->getConfigParam('iUtfMode') === 0) {
-    foreach ($aLang as $k => $v) {
-        $aLang[$k] = utf8_decode($v);
-    }
-}

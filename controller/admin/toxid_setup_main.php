@@ -27,6 +27,8 @@ class toxid_setup_main extends \OxidEsales\Eshop\Application\Controller\Admin\Ad
         $this->_aViewData['aToxidCurlUrlAdminParams']      = $oConf->getShopConfVar('aToxidCurlUrlAdminParams');
         $this->_aViewData['toxidAllowedCmsRequestParams']  = $oConf->getShopConfVar('toxidAllowedCmsRequestParams');
         $this->_aViewData['toxidDontVerifySSLCert']        = $oConf->getShopConfVar('toxidDontVerifySSLCert');
+        $this->_aViewData['aToxidCurlLogin']               = $oConf->getShopConfVar('aToxidCurlLogin');
+        $this->_aViewData['aToxidCurlPwd']                 = $oConf->getShopConfVar('aToxidCurlPwd');
 
         return parent::render();
     }
@@ -79,5 +81,33 @@ class toxid_setup_main extends \OxidEsales\Eshop\Application\Controller\Admin\Ad
         $oConf->saveShopConfVar('arr', 'aToxidCurlUrlAdminParamsBackup', $aParams['aToxidCurlUrlAdminParams'], $sShopId, self::CONFIG_BACKUP_MODULE_NAME);
         $oConf->saveShopConfVar('str', 'toxidAllowedCmsRequestParamsBackup', $aParams['toxidAllowedCmsRequestParams'], $sShopId, self::CONFIG_BACKUP_MODULE_NAME);
         $oConf->saveShopConfVar('bl', 'toxidDontVerifySSLCertBackup', $aParams['toxidDontVerifySSLCert'], $sShopId, self::CONFIG_BACKUP_MODULE_NAME);
+
+
+        // htaccess Login
+        $oConf->saveShopConfVar( 'arr', 'aToxidCurlLogin', $aParams['aToxidCurlLogin'], $sShopId, self::CONFIG_MODULE_NAME );
+        // htaccess Password
+        if(isset($aParams['aToxidCurlPwd']) && count($aParams['aToxidCurlPwd'])) {
+
+            $oEncryptor = oxNew(\OxidEsales\Eshop\Core\Encryptor::class);
+
+            // get old password settings
+            $aToxidCurlPwd = $oConf->getShopConfVar('aToxidCurlPwd');
+            $encryptKey = $oConf->getConfigParam('dbPwd');
+            foreach($aParams['aToxidCurlPwd'] as $lang => $value) {
+                $value = trim($value);
+                if($value !== '') {
+                    if(isset($aToxidCurlPwd[$lang]) && $value === $aToxidCurlPwd[$lang]) {
+                        $aParams['aToxidCurlPwd'][$lang] = $aToxidCurlPwd[$lang];
+                    } else {
+                        $aParams['aToxidCurlPwd'][$lang] = $oEncryptor->encrypt($value, $encryptKey);
+                    }
+                } else {
+                    $aParams['aToxidCurlPwd'][$lang] = '';
+                }
+            }
+            $oConf->saveShopConfVar( 'arr', 'aToxidCurlPwd', $aParams['aToxidCurlPwd'], $sShopId, self::CONFIG_MODULE_NAME );
+            // Save backup
+            $oConf->saveShopConfVar( 'arr', 'aToxidCurlPwdBackup', $aParams['aToxidCurlPwd'], $sShopId, self::CONFIG_MODULE_NAME );
+        }
     }
 }
