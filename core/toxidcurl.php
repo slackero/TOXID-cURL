@@ -932,11 +932,12 @@ class toxidCurl
      */
     protected function _getToxidLangCurlLogin($iLangId = null, $blReset = false)
     {
+        $oConf   = \OxidEsales\Eshop\Core\Registry::getConfig();
         if ($this->_aToxidCurlLogin === null || $blReset) {
-            $this->_aToxidCurlLogin = $this->_oConf->getConfigParam('aToxidCurlLogin');
+            $this->_aToxidCurlLogin = $oConf->getConfigParam('aToxidCurlLogin');
         }
         if ($iLangId === null) {
-            $iLangId = oxRegistry::getLang()->getBaseLanguage();
+            $iLangId = \OxidEsales\Eshop\Core\Registry::getLang()->getBaseLanguage();
         }
 
         return isset($this->_aToxidCurlLogin[$iLangId]) ? $this->_aToxidCurlLogin[$iLangId] : '';
@@ -950,11 +951,12 @@ class toxidCurl
      */
     protected function _getToxidLangCurlPwd($iLangId = null, $blReset = false)
     {
+        $oConf   = \OxidEsales\Eshop\Core\Registry::getConfig();
         if ($this->_aToxidCurlPwd === null || $blReset) {
 
-            $oDecryptor = oxNew('oxDecryptor');
-            $encryptKey = $this->_oConf->getConfigParam('dbPwd');
-            $this->_aToxidCurlPwd = $this->_oConf->getConfigParam('aToxidCurlPwd');
+            $oDecryptor = oxNew(\OxidEsales\Eshop\Core\Decryptor::class);
+            $encryptKey = $oConf->getConfigParam('dbPwd');
+            $this->_aToxidCurlPwd = $oConf->getConfigParam('aToxidCurlPwd');
 
             foreach($this->_aToxidCurlPwd as $lang => $value) {
                 if($value !== '') {
@@ -963,7 +965,7 @@ class toxidCurl
             }
         }
         if ($iLangId === null) {
-            $iLangId = oxRegistry::getLang()->getBaseLanguage();
+            $iLangId = \OxidEsales\Eshop\Core\Registry::getLang()->getBaseLanguage();
         }
 
         return isset($this->_aToxidCurlPwd[$iLangId]) ? $this->_aToxidCurlPwd[$iLangId] : '';
