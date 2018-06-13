@@ -1,0 +1,10 @@
+[{if $oView->getClassName() == 'toxid_curl'}]
+    [{assign var='toxid' value=$oViewConf->getToxid()}]
+    [{assign var="toxidMetaTitle" value=$toxid->getCmsSnippet('title')}]
+[{/if}]
+
+[{if $toxidMetaTitle}]
+    [{$toxidMetaTitle}]
+[{else}]
+    [{$smarty.block.parent}]
+[{/if}]

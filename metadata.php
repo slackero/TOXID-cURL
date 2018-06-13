@@ -47,6 +47,26 @@ $aModule = array(
             'block'=>'admin_formparams',
             'file'=>'/views/admin/blocks/_formparams_admin_formparams.tpl'
         ),
+        array(
+            'template' => 'layout/base.tpl',
+            'block'=>'head_title',
+            'file'=>'/views/blocks/base_head_title.tpl'
+        ),
+        array(
+            'template' => 'layout/base.tpl',
+            'block'=>'head_meta_description',
+            'file'=>'/views/blocks/base_head_meta_description.tpl'
+        ),
+        array(
+            'template' => 'layout/base.tpl',
+            'block'=>'head_meta_keywords',
+            'file'=>'/views/blocks/base_head_meta_keywords.tpl'
+        ),
+        array(
+            'template' => 'layout/base.tpl',
+            'block'=>'head_link_canonical',
+            'file'=>'/views/blocks/base_head_link_canonical.tpl'
+        ),
     ),
     'files' => array(
         'toxid_curl'                => 'marm/toxid_curl/controller/toxid_curl.php',
