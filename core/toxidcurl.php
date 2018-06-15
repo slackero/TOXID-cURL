@@ -731,6 +731,16 @@ class toxidCurl
                 }
                 $this->handleError(404, $aPage['info']['url']);
                 break;
+            case 403:
+                header ("HTTP/1.1 403 Forbidden");
+                header ('Location: '.$this->getConfig()->getShopHomeURL());
+                \OxidEsales\Eshop\Core\Registry::getUtils()->showMessageAndExit('');
+                break;
+            case 401:
+                header ("HTTP/1.1 401 Unauthorized");
+                header ('Location: '.$this->getConfig()->getShopHomeURL());
+                \OxidEsales\Eshop\Core\Registry::getUtils()->showMessageAndExit('');
+                break;
             case 301:
                 if ($this->getConfig()->getConfigParam('bToxidRedirect301ToStartpage')) {
                     header("HTTP/1.1 301 Moved Permanently");
