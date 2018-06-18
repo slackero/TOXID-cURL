@@ -107,7 +107,7 @@ class toxid_setup_main extends \OxidEsales\Eshop\Application\Controller\Admin\Ad
             }
             $oConf->saveShopConfVar( 'arr', 'aToxidCurlPwd', $aParams['aToxidCurlPwd'], $sShopId, self::CONFIG_MODULE_NAME );
             // Save backup
-            $oConf->saveShopConfVar( 'arr', 'aToxidCurlPwdBackup', $aParams['aToxidCurlPwd'], $sShopId, self::CONFIG_MODULE_NAME );
+            $oConf->saveShopConfVar( 'arr', 'aToxidCurlPwdBackup', $aParams['aToxidCurlPwd'], $sShopId, self::CONFIG_BACKUP_MODULE_NAME );
         }
     }
 }
