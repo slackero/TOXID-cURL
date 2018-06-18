@@ -8,7 +8,7 @@
   },
   "extra": {
     "oxideshop": {
-      "target-directory": "marm/toxid_curl"
+      "target-directory": "jkrug/toxid_curl"
     }
   },
   "require-dev": {
