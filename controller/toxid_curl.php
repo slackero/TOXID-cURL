@@ -104,7 +104,8 @@ class toxid_curl extends \OxidEsales\Eshop\Application\Controller\FrontendContro
      */
     public function render()
     {
-        if ( version_compare(\OxidEsales\Eshop\Core\ShopVersion::getVersion(), '4.5.0') < 0 ) {
+        $templateFile = $this->getConfig()->getTemplatePath($this->_sThisTemplate, false);
+        if (!file_exists($templateFile)) {
             $this->_sThisTemplate = 'toxid_curl.tpl';
         }
         return parent::render();
