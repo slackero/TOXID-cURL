@@ -23,7 +23,7 @@ class toxid_curl extends \OxidEsales\Eshop\Application\Controller\FrontendContro
      * Current view template
      * @var string
      */
-    protected $_sThisTemplate = 'toxid_curl.tpl';
+    protected $_sThisTemplate = 'toxid/toxid_curl.tpl';
     
     /**
      * stores URL from which typo3 content is loaded.
