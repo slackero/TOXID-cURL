@@ -468,46 +468,52 @@ class toxidCurl
             $aLanguages = array($iLangId);
         } else {
             $aLangs = $this->getConfig()->getConfigParam('aToxidCurlSource');
-            arsort($aLangs);
-            $aLanguages = array_keys($aLangs);
+            if (empty($aLangs)) {
+                $aLanguages = array();
+            } else {
+                arsort($aLangs);
+                $aLanguages = array_keys($aLangs);
+            }
         }
 
-        foreach ($aLanguages as $iLangId) {
-            $sShopUrl = $this->getConfig()->getShopUrl();
+        if (!empty($aLanguages)) {
+            foreach ($aLanguages as $iLangId) {
+                $sShopUrl = $this->getConfig()->getShopUrl();
 
-            if (substr($sShopUrl, -1) !== '/') {
-                $sShopUrl = $sShopUrl . '/';
-            }
-            $target  = rtrim($sShopUrl . $this->_getToxidLangSeoSnippet($iLangId), '/') . '/';
-            $source  = $this->_getToxidLangSource($iLangId);
-            $pattern = '%(action|href)=[\'"]' . $source . '[^"\']*?(?:/|\.html|\.php|\.asp)?(?:\?[^"\']*)?[\'"]%';
+                if (substr($sShopUrl, -1) !== '/') {
+                    $sShopUrl = $sShopUrl . '/';
+                }
+                $target = rtrim($sShopUrl . $this->_getToxidLangSeoSnippet($iLangId), '/') . '/';
+                $source = $this->_getToxidLangSource($iLangId);
+                $pattern = '%(action|href)=[\'"]' . $source . '[^"\']*?(?:/|\.html|\.php|\.asp)?(?:\?[^"\']*)?[\'"]%';
 
-            preg_match_all($pattern, $sContent, $matches, PREG_SET_ORDER);
-            foreach ($matches as $match) {
+                preg_match_all($pattern, $sContent, $matches, PREG_SET_ORDER);
+                foreach ($matches as $match) {
 
-                // skip rewrite for defined file extensions
-                if ($this->_getFileExtensionValuesForNoRewrite()) {
-                    if (preg_match('%\.(' . $this->_getFileExtensionValuesForNoRewrite() . ')[\'"]*%i', $match[0])) {
+                    // skip rewrite for defined file extensions
+                    if ($this->_getFileExtensionValuesForNoRewrite()) {
+                        if (preg_match('%\.(' . $this->_getFileExtensionValuesForNoRewrite() . ')[\'"]*%i', $match[0])) {
+                            continue;
+                        }
+                    }
+
+                    if ('src' == $match[1] && $this->getConfig()->getConfigParam('toxidRewriteUrlEncoded') == true) {
+                        $sContent = str_replace($match[0], str_replace(urlencode($source), urlencode($target), $match[0]), $sContent);
                         continue;
                     }
-                }
 
-                if ('src' == $match[1] && $this->getConfig()->getConfigParam('toxidRewriteUrlEncoded') == true) {
-                    $sContent = str_replace($match[0], str_replace(urlencode($source), urlencode($target), $match[0]), $sContent);
-                    continue;
-                }
-
-                // skip rewrite for defined rel values
-                if ($this->_getRelValuesForNoRewrite()) {
-                    if (preg_match('%rel=["\'](' . $this->_getRelValuesForNoRewrite() . ')["\']%', $match[0])) {
-                        continue;
+                    // skip rewrite for defined rel values
+                    if ($this->_getRelValuesForNoRewrite()) {
+                        if (preg_match('%rel=["\'](' . $this->_getRelValuesForNoRewrite() . ')["\']%', $match[0])) {
+                            continue;
+                        }
                     }
+
+                    $sContent = str_replace($match[0], str_replace($source, $target, $match[0]), $sContent);
                 }
+                unset($match);
 
-                $sContent = str_replace($match[0], str_replace($source, $target, $match[0]), $sContent);
             }
-            unset($match);
-
         }
         
         // strip double http://example.com/http://example.com
@@ -945,7 +951,7 @@ class toxidCurl
      */
     protected function _getToxidLangCurlLogin($iLangId = null, $blReset = false)
     {
-        $oConf   = \OxidEsales\Eshop\Core\Registry::getConfig();
+        $oConf = \OxidEsales\Eshop\Core\Registry::getConfig();
         if ($this->_aToxidCurlLogin === null || $blReset) {
             $this->_aToxidCurlLogin = $oConf->getConfigParam('aToxidCurlLogin');
         }
@@ -964,16 +970,18 @@ class toxidCurl
      */
     protected function _getToxidLangCurlPwd($iLangId = null, $blReset = false)
     {
-        $oConf   = \OxidEsales\Eshop\Core\Registry::getConfig();
+        $oConf = \OxidEsales\Eshop\Core\Registry::getConfig();
         if ($this->_aToxidCurlPwd === null || $blReset) {
 
             $oDecryptor = oxNew(\OxidEsales\Eshop\Core\Decryptor::class);
             $encryptKey = $oConf->getConfigParam('dbPwd');
             $this->_aToxidCurlPwd = $oConf->getConfigParam('aToxidCurlPwd');
 
-            foreach($this->_aToxidCurlPwd as $lang => $value) {
-                if($value !== '') {
-                    $this->_aToxidCurlPwd[$lang] = $oDecryptor->decrypt($value, $encryptKey);
+            if (!empty($this->_aToxidCurlPwd) && is_array($this->_aToxidCurlPwd)) {
+                foreach ($this->_aToxidCurlPwd as $lang => $value) {
+                    if ($value !== '') {
+                        $this->_aToxidCurlPwd[$lang] = $oDecryptor->decrypt($value, $encryptKey);
+                    }
                 }
             }
         }

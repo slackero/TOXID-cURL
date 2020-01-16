@@ -1,19 +1,15 @@
 [{include file="headitem.tpl" title="GENERAL_ADMIN_TITLE"|oxmultilangassign}]
 <script type="text/javascript">
-<!--
 function _groupExp(el) {
     var _cur = el.parentNode;
-
-    if (_cur.className == "exp") _cur.className = "";
-      else _cur.className = "exp";
+    _cur.className = _cur.className === 'exp' ? '' : 'exp';
 }
-//-->
 </script>
 
-[{ if $readonly }]
-[{assign var="readonly" value="readonly disabled"}]
+[{if $readonly}]
+    [{assign var="readonly" value="readonly disabled"}]
 [{else}]
-[{assign var="readonly" value=""}]
+    [{assign var="readonly" value=""}]
 [{/if}]
 <form name="transfer" id="transfer" action="[{ $oViewConf->getSelfLink() }]" method="post">
     [{ $oViewConf->getHiddenSid() }]
@@ -38,7 +34,7 @@ function _groupExp(el) {
                         <tr>
                             <td valign="top" style="width:500px;padding-right:30px;">
                                 <a href="http://www.marmalade.de/" target="_blank" style="float:left;margin:0 20px 10px 0">
-                                    <img src="../modules/marm/toxid_curl/toxid.jpg" width="90px" />
+                                    <img src="../modules/jkrug/toxid_curl/toxid.jpg" width="90px" />
                                 </a>
                                 [{oxmultilang ident='TOXID_SUPPORT_DESC'}]
                             </td>
